@@ -11,7 +11,12 @@ export function createApp(corsOrigin: string | undefined) {
   app.use(helmet());
   app.use(express.json());
   app.use(morgan("dev"));
-  app.use(cors({ origin: corsOrigin || "*" }));
+  app.use(
+    cors({
+      origin: corsOrigin || "*",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+    })
+  );
   app.use("/api/todos", todosRouter);
   app.use(errorHandler);
   return app;
